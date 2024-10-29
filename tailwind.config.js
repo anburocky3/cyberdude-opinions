@@ -1,5 +1,4 @@
-import defaultTheme from 'tailwindcss/defaultTheme';
-import forms from '@tailwindcss/forms';
+import colors from 'tailwindcss/colors'
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -10,12 +9,22 @@ export default {
     ],
 
     theme: {
+
         extend: {
+            colors: {
+                transparent: 'transparent',
+                'primary': {
+                    DEFAULT: colors.orange["500"],
+                    hover: colors.orange["600"]
+                }
+            },
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                'mont': ["Montserrat", "serif"],
+                'open-sans': ["Open Sans", "sans-serif"],
+                'inter': ["Inter", "sans-serif"],
             },
         },
     },
 
-    plugins: [forms],
+    plugins: [],
 };

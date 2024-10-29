@@ -12,7 +12,7 @@
     <body class="antialiased font-sans">
         <div>
 
-        <livewire:hello-world/>
+        <livewire:counter/>
         </div>
     </body>
 </html>
