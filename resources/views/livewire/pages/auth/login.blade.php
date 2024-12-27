@@ -36,7 +36,7 @@ $login = function () {
     <form wire:submit="login">
         <!-- Email Address -->
         <div>
-            {{--             <x-input-label for="email" :value="__('Email')" /> --}}
+            {{--             <x-forms.input-label for="email" :value="__('Email')" /> --}}
             <x-forms.input wire:model="form.email" id="email" class="block mt-1 w-full" type="email" name="email"
                            label="Email Address"
                            required autofocus autocomplete="username" placeholder="Email Address" />
@@ -45,7 +45,7 @@ $login = function () {
 
         <!-- Password -->
         <div class="mt-4">
-            {{--             <x-input-label for="password" :value="__('Password')" /> --}}
+            {{--             <x-forms.input-label for="password" :value="__('Password')" /> --}}
 
             <x-forms.input wire:model="form.password" id="password" class="block mt-1 w-full"
                            type="password"
