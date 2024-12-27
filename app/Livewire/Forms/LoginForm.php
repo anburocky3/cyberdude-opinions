@@ -3,8 +3,10 @@
 namespace App\Livewire\Forms;
 
 use Illuminate\Auth\Events\Lockout;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Validate;
@@ -13,10 +15,10 @@ use Livewire\Form;
 class LoginForm extends Form
 {
     #[Validate('required|string|email')]
-    public string $email = '';
+    public string $email = 'anbuceo@gmail.com';
 
     #[Validate('required|string')]
-    public string $password = '';
+    public string $password = '123456789';
 
     #[Validate('boolean')]
     public bool $remember = false;
@@ -24,14 +26,16 @@ class LoginForm extends Form
     /**
      * Attempt to authenticate the request's credentials.
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only(['email', 'password']), $this->remember)) {
+        if (!Auth::attempt($this->only(['email', 'password']), $this->remember)) {
             RateLimiter::hit($this->throttleKey());
+
+            // $this->redirectToDashboard();
 
             throw ValidationException::withMessages([
                 'form.email' => trans('auth.failed'),
@@ -46,7 +50,7 @@ class LoginForm extends Form
      */
     protected function ensureIsNotRateLimited(): void
     {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
         }
 
@@ -67,6 +71,11 @@ class LoginForm extends Form
      */
     protected function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->email).'|'.request()->ip());
+        return Str::transliterate(Str::lower($this->email) . '|' . request()->ip());
     }
+
+    // protected function redirectToDashboard(): RedirectResponse
+    // {
+    //
+    // }
 }

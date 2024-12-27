@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Suggestion;
+
 class SiteController extends Controller
 {
     public function index()
     {
-        $users = [
-            ['id' => 1, 'name' => 'Alex'],
-            ['id' => 2, 'name' => 'Alan'],
-            ['id' => 3, 'name' => 'Tom'],
-        ];
+        $suggestions = Suggestion::latest()->get();
 
-        return view('home', compact('users'));
+        return view('home', compact('suggestions'));
     }
 }

@@ -31,16 +31,20 @@
             </div>
             <div class="flex-1 max-w-4xl md:p-5">
                 <div class="flex justify-between items-center"><h4 class="text-2xl font-bold">Suggestions</h4>
-                    <button
-                        class="px-4 py-2 rounded  font-medium flex items-center text-center shadow bg-gradient-to-r from-red-500 to-orange-500 text-white hover:from-red-600 hover:to-orange-600 undefined">
-                        <div class="pr-2">
-                            <svg width="1em" height="1em" viewBox="0 0 24 24">
-                                <path fill="currentColor"
-                                      d="M18 12.998h-5v5a1 1 0 0 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2z"></path>
-                            </svg>
-                        </div>
-                        Submit Idea
-                    </button>
+                    @auth()
+                        <a
+                            href="{{route('suggestion.create')}}"
+                            class="px-4 py-2 rounded  font-medium flex items-center text-center shadow bg-gradient-to-r from-red-500 to-orange-500 text-white hover:from-red-600 hover:to-orange-600 "
+                            wire:navigate>
+                            <div class="pr-2">
+                                <svg width="1em" height="1em" viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                          d="M18 12.998h-5v5a1 1 0 0 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2z"></path>
+                                </svg>
+                            </div>
+                            Submit Idea
+                        </a>
+                    @endauth
                 </div>
                 <div><p class="text-gray-600 mt-3 text-sm md:text-base">You can submit your suggestion here, and
                                                                         upvote/downvote on Ideas submitted by the
@@ -55,8 +59,8 @@
                         Category
                     </button>
                 </div>
-                @foreach($users as $user)
-                    <livewire:feedback />
+                @foreach($suggestions as $suggestion)
+                    <livewire:feedback :feedback="$suggestion" :key="$suggestion" />
                 @endforeach
 
             </div>
