@@ -79,7 +79,8 @@ $logout = function (Logout $logout) {
                                     <div x-data="{{ json_encode(['name' => auth()->user()->name]) }}"
                                          x-text="`Hello ${name}`"
                                          x-on:profile-updated.window="name = $event.detail.name"></div>
-
+                                    <img src="{{ auth()->user()->avatar }}" alt="User Avatar"
+                                         class="w-8 h-8 rounded-full mx-2">
                                     <div class="ms-1">
                                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                              viewBox="0 0 20 20">
@@ -109,14 +110,20 @@ $logout = function (Logout $logout) {
 
 
                 @guest
-                    <x-button href="{{ route('login') }}">
-                        <x-heroicon-s-lock-open class="w-5 h-5 mr-2" />
-                        Login
-                    </x-button>
-                    <x-button
-                        variant="light" :disabled="true" href="{{ route('register') }}">
-                        Sign Up
-                    </x-button>
+                    <div class="flex items-center justify-center">
+                        <a href="{{ route('auth.redirect') }}"
+                           class="inline-flex items-center px-4 py-3 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                            <x-simpleicon-github class="w-4 mr-2" /> {{ __('Login with GitHub') }}
+                        </a>
+                    </div>
+                    {{--                     <x-button href="{{ route('login') }}"> --}}
+                    {{--                         <x-heroicon-s-lock-open class="w-5 h-5 mr-2" /> --}}
+                    {{--                         Login --}}
+                    {{--                     </x-button> --}}
+                    {{--                     <x-button --}}
+                    {{--                         variant="light" :disabled="true" href="{{ route('register') }}"> --}}
+                    {{--                         Sign Up --}}
+                    {{--                     </x-button> --}}
                 @endguest
             </div>
         </div>

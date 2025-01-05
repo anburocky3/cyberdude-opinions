@@ -16,15 +16,18 @@ class AuthController extends Controller
     public function callback()
     {
         $githubUser = Socialite::driver('github')->user();
-
+        
         // If the user doesn't exist create, else update the existing one
         $user = User::updateOrCreate([
-            'email' => $githubUser->getEmail(),
+            'github_id' => $githubUser->id,
         ], [
             'provider_id' => $githubUser->getId(),
             'name' => $githubUser->getName() ?? $githubUser->getNickname(),
+            'email' => $githubUser->getEmail(),
+            'username' => $githubUser->getNickname(),
             'avatar' => $githubUser->avatar,
             'token' => $githubUser->token,
+            'refresh_token' => $githubUser->refreshToken,
         ]);
 
         Auth::login($user, true);

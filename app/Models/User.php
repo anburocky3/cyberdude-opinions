@@ -21,11 +21,15 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
         'role',
         'github_id',
         'avatar',
+        'token',
+        'provider_id',
+        'refresh_token',
     ];
 
     /**
