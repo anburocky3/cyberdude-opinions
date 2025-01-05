@@ -17,7 +17,20 @@ class Feedback extends Component
 
     public function addVote()
     {
-        $this->votes++;
+        $existingVote = $this->feedback->votes()->where('user_id', auth()->id())->first();
+
+        if ($existingVote) {
+            $existingVote->delete();
+        } else {
+            $this->feedback->votes()->create(['user_id' => auth()->id()]);
+        }
+
+        $this->feedback->refresh();
+    }
+
+    public function userHasVoted()
+    {
+        return $this->feedback->votes()->where('user_id', auth()->id())->exists();
     }
 
     public function render()

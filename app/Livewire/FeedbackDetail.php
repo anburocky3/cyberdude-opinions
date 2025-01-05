@@ -160,6 +160,25 @@ class FeedbackDetail extends Component
         $this->dispatch('replyDeleted');
     }
 
+    public function vote()
+    {
+        $existingVote = $this->suggestion->votes()->where('user_id', auth()->id())->first();
+
+        if ($existingVote) {
+            $existingVote->delete();
+        } else {
+            $this->suggestion->votes()->create(['user_id' => auth()->id()]);
+        }
+
+        $this->suggestion->refresh();
+    }
+
+    public function userHasVoted()
+    {
+        return $this->suggestion->votes()->where('user_id', auth()->id())->exists();
+    }
+
+
     public function render(): Application|Factory|\Illuminate\Contracts\View\View|View
     {
         return view('livewire.feedback-detail');

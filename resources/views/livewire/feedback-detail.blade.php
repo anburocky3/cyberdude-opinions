@@ -8,10 +8,13 @@
                 <div class="flex flex-wrap gap-5 self-start mt-2.5">
                     <div
                         class="bg-white rounded flex flex-col items-center font-black px-5 pb-5 hover:bg-white">
-                        <svg width="1em" height="1em" viewBox="0 0 24 24" class="w-10 h-10 text-orange-400">
-                            <path fill="currentColor" d="m7 14l5-5l5 5H7z"></path>
-                        </svg>
-                        <div class="text-xl font-semibold">75</div>
+                        <button wire:click="vote" class="focus:outline-none">
+                            <svg width="1em" height="1em" viewBox="0 0 24 24"
+                                 class="w-10 h-10 {{ $this->userHasVoted() ? 'text-orange-500' : 'text-gray-400' }}">
+                                <path fill="currentColor" d="m7 14l5-5l5 5H7z"></path>
+                            </svg>
+                        </button>
+                        <div class="text-xl font-semibold">{{ $suggestion->votes->count() }}</div>
                     </div>
                     <div class="flex flex-col grow shrink-0 self-start mt-2 basis-0 w-fit max-md:max-w-full">
                         <h1 class="self-start text-xl font-bold text-yellow-950">{{$suggestion->title}}</h1>
@@ -76,8 +79,10 @@
                     maxlength="255"
                 />
                 @error('comment') <span class="text-red-500">{{ $message }}</span> @enderror
-                <div class="flex justify-between">
-                    <div class="text-sm text-gray-600 mt-1 ">
+                <div class="flex justify-end" :class="{'justify-between': comment.length >= 3}">
+                    <div class="text-sm text-gray-600 mt-1 " x-show="comment.length >= 3"
+                         x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
+                         x-transition:enter-end="opacity-100">
                         <span x-text="comment.length"></span> / <span x-text="maxChars"></span> characters used
                                                               (<span x-text="maxChars - comment.length"></span>
                                                               remaining)

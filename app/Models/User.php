@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -42,6 +43,11 @@ class User extends Authenticatable
     public function getProfilePhotoUrlAttribute()
     {
         return $this->attributes['profile_photo_url'] ?? '/img/avatar.webp';
+    }
+
+    public function votes(): HasMany
+    {
+        return $this->hasMany(Vote::class);
     }
 
     /**

@@ -37,6 +37,10 @@ class Suggestion extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class)->whereNull('parent_id')->latest();
+    }
 
+    public function votes(): HasMany
+    {
+        return $this->hasMany(Vote::class);
     }
 }

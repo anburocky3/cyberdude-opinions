@@ -1,10 +1,12 @@
 <a class="bg-white border rounded p-5 mt-4 flex flex-col md:flex-row space-x-4 space-y-4 md:space-y-0 hover:bg-gray-50"
    href="{{ route('site.suggestion.show', ['suggestion' => $feedback->id])  }}" wire:navigate>
-    <div class="border rounded flex flex-col items-center px-5 py-5 md:py-0 hover:bg-white">
-        <svg width="1em" height="1em" viewBox="0 0 24 24" class="w-10 h-10 text-gray-400" wire:click.debounce="addVote">
+    <div class="border rounded flex flex-col items-center px-5 py-5 md:py-0 hover:bg-white !pointer-events-none">
+        <svg width="1em" height="1em" viewBox="0 0 24 24"
+             class="w-10 h-10 {{ $this->userHasVoted() ? 'text-orange-500' : 'text-gray-400' }}"
+             wire:click.debounce="addVote">
             <path fill="currentColor" d="m7 14l5-5l5 5H7z"></path>
         </svg>
-        <div class="text-xl font-semibold">{{ $votes }}</div>
+        <div class="text-xl font-semibold">{{ $feedback->votes->count() }}</div>
     </div>
     <div class="space-y-2 flex-1">
         <h4 class="font-bold text-xl">{{ $feedback->title }}</h4>
@@ -30,7 +32,7 @@
                         <path fill="currentColor"
                               d="M20 17.17L18.83 16H4V4h16v13.17zM20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2z"></path>
                     </svg>
-                    <span>0</span>
+                    <span>{{ $feedback->comments->count() }}</span>
                 </div>
             </div>
         </div>
