@@ -8,7 +8,7 @@ class SiteController extends Controller
 {
     public function index()
     {
-        $suggestions = Suggestion::latest()->get();
+        $suggestions = Suggestion::latest()->paginate(10);;
 
         return view('home', compact('suggestions'));
     }

@@ -65,6 +65,9 @@
                     @foreach($suggestions as $suggestion)
                         <livewire:feedback :feedback="$suggestion" :key="$suggestion" />
                     @endforeach
+                    <div class="mt-4">
+                        {{ $suggestions->links() }} <!-- Pagination links -->
+                    </div>
                 @endif
             </div>
         </div>
