@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\SuggestionCreated;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -22,12 +23,21 @@ class Suggestion extends Model
         'technology',
         'tags',
         'desc',
-        'user_id'
+        'user_id',
+        'status',
     ];
 
     protected $casts = [
         'tags' => 'array',
     ];
+
+
+    protected static function booted(): void
+    {
+        static::created(function ($suggestion) {
+            event(new SuggestionCreated($suggestion));
+        });
+    }
 
     public function user(): BelongsTo
     {

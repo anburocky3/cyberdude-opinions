@@ -106,7 +106,7 @@
                     <div
                         class="flex flex-wrap gap-5 items-start px-6 pt-5 pb-11 bg-white rounded-xl border border-solid border-neutral-200 max-md:pr-5 max-md:mt-10 max-md:mr-2.5"
                         role="article">
-                        <img src="{{ $comment->user->profile_photo_url }}"
+                        <img src="{{ $comment->user->avatar }}"
                              class="object-contain shrink-0 w-12 rounded-full aspect-square"
                              alt="Profile picture of {{ $comment->user->name }}" />
                         <div class="flex flex-col grow shrink-0 mt-2 basis-0 w-fit max-md:max-w-full">
@@ -184,7 +184,7 @@
                                 <div
                                     class="mt-5 ml-10 flex flex-wrap gap-5 items-start px-6 pt-5 pb-11 bg-gray-100 rounded-xl border border-solid border-neutral-200 max-md:pr-5 max-md:mt-10 max-md:mr-2.5"
                                     role="article">
-                                    <img src="{{ $reply->user->profile_photo_url }}"
+                                    <img src="{{ $reply->user->avatar }}"
                                          class="object-contain shrink-0 w-12 rounded-full aspect-square"
                                          alt="Profile picture of {{ $reply->user->name }}" />
                                     <div class="flex flex-col grow shrink-0 mt-2 basis-0 w-fit max-md:max-w-full">

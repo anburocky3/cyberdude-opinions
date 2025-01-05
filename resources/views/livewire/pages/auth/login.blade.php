@@ -78,5 +78,12 @@ $login = function () {
                 {{ __('Log in') }}
             </x-button>
         </div>
+        <hr class="mt-4">
+        <div class="flex items-center justify-center mt-4">
+            <a href="{{ route('auth.redirect') }}"
+               class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                <x-simpleicon-github class="w-4 mr-2" /> {{ __('Login with GitHub') }}
+            </a>
+        </div>
     </form>
 </div>
