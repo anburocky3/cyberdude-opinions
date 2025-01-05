@@ -42,7 +42,7 @@ class SuggestionCreate extends Component
 
         session()->flash('status', 'Suggestion successfully posted.');
 
-        return $this->redirect(route('siteindex'));
+        return $this->redirect(route('site.index'));
     }
 
     #[Layout('layouts.site-layout')]

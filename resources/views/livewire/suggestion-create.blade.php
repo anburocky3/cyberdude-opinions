@@ -36,7 +36,7 @@
                                         :options="$statusOptions"
                                         label="Status"
                                         required
-                                        placeholder="Status"
+                                        placeholder="Select status"
                                         required />
                         <x-forms.input-error :messages="$errors->get('status')" class="mt-2" />
                     </div>

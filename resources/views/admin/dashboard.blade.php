@@ -5,10 +5,10 @@
 <x-site-layout>
     <div class="container mx-auto p-5 py-10">
         <div class="flex justify-between items-center mb-10"><h2 class="text-xl font-bold">All Course Syllabus</h2>
-            <button
-                class="px-4 py-2 rounded  font-medium flex items-center text-center shadow bg-gradient-to-r from-red-500 to-orange-500 text-white hover:from-red-600 hover:to-orange-600 ">
+            <a href="{{route('admin.course.create')}}" wire:navigate
+               class="px-4 py-2 rounded  font-medium flex items-center text-center shadow bg-gradient-to-r from-red-500 to-orange-500 text-white hover:from-red-600 hover:to-orange-600">
                 Create
-            </button>
+            </a>
         </div>
         <div class="grid grid-cols-4 gap-10 ">
             <div>

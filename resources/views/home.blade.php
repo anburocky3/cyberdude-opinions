@@ -3,7 +3,7 @@
 @endsection
 
 <x-site-layout>
-    <div class="container mx-auto py-5">
+    <div class="container mx-auto">
         <div class="p-5 flex flex-col md:flex-row md:space-x-10 space-y-10 md:space-y-0">
             <div class="w-72">
                 <div class="bg-white p-5 rounded shadow space-y-3 sm:p-8">
@@ -33,7 +33,7 @@
                 <div class="flex justify-between items-center"><h4 class="text-2xl font-bold">Suggestions</h4>
                     @auth()
                         <a
-                            href="{{route('suggestion.create')}}"
+                            href="{{route('site.suggestion.create')}}"
                             class="px-4 py-2 rounded  font-medium flex items-center text-center shadow bg-gradient-to-r from-red-500 to-orange-500 text-white hover:from-red-600 hover:to-orange-600 "
                             wire:navigate>
                             <div class="pr-2">
@@ -59,10 +59,13 @@
                         Category
                     </button>
                 </div>
-                @foreach($suggestions as $suggestion)
-                    <livewire:feedback :feedback="$suggestion" :key="$suggestion" />
-                @endforeach
-
+                @if($suggestions->isEmpty())
+                    <div class="mt-5 text-center text-gray-600">No suggestions found</div>
+                @else
+                    @foreach($suggestions as $suggestion)
+                        <livewire:feedback :feedback="$suggestion" :key="$suggestion" />
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>

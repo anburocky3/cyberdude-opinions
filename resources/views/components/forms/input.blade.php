@@ -16,6 +16,5 @@
     @endif
 
     <input
-        @disabled($disabled) {{ $attributes->merge(['class' => 'bg-gray-200 px-4 text-sm py-2 rounded outline-none']) }} placeholder="{{ $placeholder }}" />
-
+        @disabled($disabled) {{ $attributes->merge(['class' => 'bg-gray-200 px-4 text-sm py-2 rounded outline-none w-full']) }} placeholder="{{ $placeholder }}" />
 </div>

@@ -19,6 +19,7 @@
         'warning' => 'from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700',
         'light' => 'bg-white !text-black border hover:bg-gray-50',
         'dark' => 'from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700',
+        'o-dark' => '!text-gray-600 border hover:bg-gray-50 !text-xs',
     ][$variant] ?? 'from-red-500 to-orange-500'; // Fallback to 'primary'
 
     // Button size classes

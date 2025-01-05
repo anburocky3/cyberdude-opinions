@@ -39,6 +39,11 @@ class User extends Authenticatable
         return $this->role === 'admin';
     }
 
+    public function getProfilePhotoUrlAttribute()
+    {
+        return $this->attributes['profile_photo_url'] ?? '/img/avatar.webp';
+    }
+
     /**
      * Get the attributes that should be cast.
      *
