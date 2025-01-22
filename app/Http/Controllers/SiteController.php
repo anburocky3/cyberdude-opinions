@@ -9,11 +9,11 @@ class SiteController extends Controller
 {
     public function index()
     {
-        if (config('app.env') === 'local') {
-            $suggestions = Suggestion::on('production_mysql')->latest()->paginate(10);
-        } else {
-            $suggestions = Suggestion::latest()->paginate(10);
-        }
+        // if (config('app.env') === 'local') {
+        //     $suggestions = Suggestion::on('production_mysql')->latest()->paginate(10);
+        // } else {
+        $suggestions = Suggestion::latest()->paginate(10);
+        // }
 
         return view('home', compact('suggestions'));
     }
