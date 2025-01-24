@@ -1,5 +1,5 @@
 <a class="bg-white border rounded p-5 mt-4 flex flex-col md:flex-row space-x-4 space-y-4 md:space-y-0 hover:bg-gray-50"
-   href="{{ route('site.suggestion.show', ['suggestion' => $feedback->id])  }}" wire:navigate>
+   href="{{ route('site.suggestion.show', ['suggestion' => $feedback->slug])  }}" wire:navigate>
     <div class="border rounded flex flex-col items-center px-5 py-5 md:py-0 hover:bg-white !pointer-events-none">
         <svg width="1em" height="1em" viewBox="0 0 24 24"
              class="w-10 h-10 {{ $this->userHasVoted() ? 'text-orange-500' : 'text-gray-400' }}"

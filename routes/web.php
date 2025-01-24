@@ -13,10 +13,15 @@ Route::name('site.')->group(function () {
         Route::get('/suggestion/create', SuggestionCreate::class)->name('suggestion.create');
     });
 
-    Route::get('/suggestion/{suggestion}', [SuggestionController::class, 'show'])->name('suggestion.show');
+    Route::get('/suggestion/{suggestion:slug}', [SuggestionController::class, 'show'])->name('suggestion.show');
 });
 
 Route::view('/roadmap', 'roadmap');
+//
+// Route::get('roadmaps', RoadmapIndex::class)->name('roadmaps.index');
+// Route::get('roadmaps/create', RoadmapCreate::class)->name('roadmaps.create');
+// Route::get('roadmaps/{roadmap}', RoadmapShow::class)->name('roadmaps.show');
+// Route::get('roadmaps/{roadmap}/edit', RoadmapEdit::class)->name('roadmaps.edit');
 
 Route::middleware(['auth'])->group(function () {
     Route::view('dashboard', 'dashboard')

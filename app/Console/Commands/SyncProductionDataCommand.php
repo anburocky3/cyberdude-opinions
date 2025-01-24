@@ -6,6 +6,7 @@ use App\Models\Suggestion;
 use Arr;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Str;
 
 class SyncProductionDataCommand extends Command
 {
@@ -20,13 +21,27 @@ class SyncProductionDataCommand extends Command
 
         // Update the local database
         foreach ($productionData as $data) {
+
+            // Generate the slug
+            $baseSlug = Str::slug($data->title);
+            $slug = $baseSlug;
+            $count = 1;
+
+            while (Suggestion::where('slug', $slug)->exists()) {
+                $slug = $baseSlug . '-' . $count++;
+            }
+
+            // Merge the slug with the other data
+            $mergedData = array_merge($data->toArray(), [
+                'slug' => $slug,
+                'created_at' => Carbon::parse($data->created_at)->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::parse($data->updated_at)->format('Y-m-d H:i:s'),
+                'tags' => json_encode($data->tags),
+            ]);
+
             Suggestion::updateOrInsert(
                 ['id' => $data->id], // Assuming 'id' is the primary key
-                array_merge($data->toArray(), [
-                    'created_at' => Carbon::parse($data->created_at)->format('Y-m-d H:i:s'),
-                    'updated_at' => Carbon::parse($data->updated_at)->format('Y-m-d H:i:s'),
-                    'tags' => json_encode($data->tags),
-                ])
+                $mergedData
             );
         }
 

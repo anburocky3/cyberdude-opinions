@@ -6,6 +6,7 @@ use App\Events\SuggestionCreated;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Str;
 
 class Suggestion extends Model
 {
@@ -20,6 +21,7 @@ class Suggestion extends Model
 
     protected $fillable = [
         'title',
+        'slug',
         'technology',
         'tags',
         'desc',
@@ -34,9 +36,26 @@ class Suggestion extends Model
 
     protected static function booted(): void
     {
+        static::creating(function ($suggestion) {
+            $baseSlug = Str::slug($suggestion->title);
+            $slug = $baseSlug;
+            $count = 1;
+
+            while (self::where('slug', $slug)->exists()) {
+                $slug = $baseSlug . '-' . $count++;
+            }
+
+            $suggestion->slug = $slug;
+        });
+
         static::created(function ($suggestion) {
             event(new SuggestionCreated($suggestion));
         });
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 
     public function user(): BelongsTo
