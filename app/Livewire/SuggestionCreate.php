@@ -3,6 +3,9 @@
 namespace App\Livewire;
 
 use App\Models\Suggestion;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Foundation\Application;
+use Illuminate\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -45,8 +48,7 @@ class SuggestionCreate extends Component
         return $this->redirect(route('site.index'));
     }
 
-    #[Layout('layouts.site-layout')]
-    public function render()
+    public function render(): Application|Factory|\Illuminate\Contracts\View\View|View
     {
         return view('livewire.suggestion-create');
     }

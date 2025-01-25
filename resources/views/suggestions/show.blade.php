@@ -2,6 +2,6 @@
     {{ $suggestion->title }}
 @endsection
 
-<x-site-layout>
+<x-app-layout>
     @livewire('feedback-detail', ['suggestion' => $suggestion])
-</x-site-layout>
+</x-app-layout>

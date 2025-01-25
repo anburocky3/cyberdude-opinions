@@ -1,8 +1,9 @@
 @section('page-title')
-    CyberDude Request - Your Opinions Matters!
+    Admin Dashboard
 @endsection
 
-<x-site-layout>
+<x-app-layout>
+
     <div class="container mx-auto p-5 py-10">
         <div class="flex justify-between items-center mb-10"><h2 class="text-xl font-bold">All Course Syllabus</h2>
             <a href="{{route('admin.course.create')}}" wire:navigate
@@ -33,4 +34,4 @@
             </div>
         </div>
     </div>
-</x-site-layout>
+</x-app-layout>
