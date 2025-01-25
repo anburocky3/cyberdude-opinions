@@ -11,19 +11,19 @@
     <div class="space-y-2 flex-1">
         <h4 class="font-bold text-xl">{{ $feedback->title }}</h4>
         <p class="text-gray-500 text-sm">{{ $feedback->desc }}</p>
-        <div class="flex flex-col md:flex-row justify-between items-center space-x-4 pt-3">
-            <div class="flex md:items-center space-x-4">
+        <div class="flex flex-col md:flex-row sm:justify-between sm:items-center sm:space-x-4 pt-3">
+            <div class="flex flex-col sm:flex-row md:items-center sm:space-x-4">
                 <h4 class="text-sm font-semibold text-gray-600">{{ $feedback->user->name }}</h4>
-                <div class="text-gray-500 space-x-4 text-sm">
+                <div class="flex flex-col sm:flex-row text-gray-500 sm:space-x-4 text-sm">
                     <span>{{ $feedback->created_at->format('d M, Y') }}</span>
-                    <span class="space-x-2">
+                    <span class="sm:space-x-2">
                         @foreach($feedback->tags as $tag)
-                            <span class="hover:text-orange-600">#{{ $tag }}</span>
+                            <span class="text-xs sm:text-sm hover:text-orange-600">#{{ $tag }}</span>
                         @endforeach
                     </span>
                 </div>
             </div>
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center justify-end space-x-4 mt-3 sm:mt-0">
                 <button class="px-4 py-1 rounded text-white uppercase text-xs bg-gray-400 hover:bg-gray-600">
                     {{$feedback->status}}
                 </button>

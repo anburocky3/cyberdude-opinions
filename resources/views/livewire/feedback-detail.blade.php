@@ -8,12 +8,21 @@
                 <div class="flex flex-wrap gap-5 self-start mt-2.5">
                     <div
                         class="bg-white rounded flex flex-col items-center font-black px-5 pb-5 hover:bg-white">
-                        <button wire:click="vote" class="focus:outline-none">
-                            <svg width="1em" height="1em" viewBox="0 0 24 24"
-                                 class="w-10 h-10 {{ $this->userHasVoted() ? 'text-orange-500' : 'text-gray-400' }}">
-                                <path fill="currentColor" d="m7 14l5-5l5 5H7z"></path>
-                            </svg>
-                        </button>
+                        @auth
+                            <button wire:click="vote" class="focus:outline-none">
+                                <svg width="1em" height="1em" viewBox="0 0 24 24"
+                                     class="w-10 h-10 {{ $this->userHasVoted() ? 'text-orange-500' : 'text-gray-400' }}">
+                                    <path fill="currentColor" d="m7 14l5-5l5 5H7z"></path>
+                                </svg>
+                            </button>
+                        @else
+                            <button onclick="alert('Please log in to vote.')" class="focus:outline-none">
+                                <svg width="1em" height="1em" viewBox="0 0 24 24"
+                                     class="w-10 h-10 text-gray-400">
+                                    <path fill="currentColor" d="m7 14l5-5l5 5H7z"></path>
+                                </svg>
+                            </button>
+                        @endauth
                         <div class="text-xl font-semibold">{{ $suggestion->votes->count() }}</div>
                     </div>
                     <div class="flex flex-col grow shrink-0 self-start mt-2 basis-0 w-fit max-md:max-w-full">

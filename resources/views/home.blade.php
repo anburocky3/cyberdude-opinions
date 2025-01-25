@@ -5,7 +5,7 @@
 <x-site-layout>
     <div class="container mx-auto">
         <div class="p-5 flex flex-col md:flex-row md:space-x-10 space-y-10 md:space-y-0">
-            <div class="w-72">
+            <div class="w-full sm:w-72">
                 <div class="bg-white p-5 rounded shadow space-y-3 sm:p-8">
                     <div>
                         <div class="text-xl font-semibold">Statuses</div>
