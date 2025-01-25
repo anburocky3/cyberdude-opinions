@@ -34,6 +34,8 @@ class SyncProductionDataCommand extends Command
             // Merge the slug with the other data
             $mergedData = array_merge($data->toArray(), [
                 'slug' => $slug,
+                'show_roadmap' => $data->show_roadmap ? $data->show_roadmap : false,
+                'is_featured' => $data->is_featured ? $data->is_featured : false,
                 'created_at' => Carbon::parse($data->created_at)->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::parse($data->updated_at)->format('Y-m-d H:i:s'),
                 'tags' => json_encode($data->tags),

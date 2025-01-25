@@ -25,6 +25,8 @@ class Suggestion extends Model
         'technology',
         'tags',
         'desc',
+        'show_roadmap',
+        'is_featured',
         'user_id',
         'status',
     ];
