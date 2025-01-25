@@ -1,5 +1,5 @@
 @section('page-title')
-    Suggestion Details
+    {{ $suggestion->title }}
 @endsection
 
 <x-site-layout>

@@ -25,8 +25,8 @@ $logout = function (Logout $logout) {
                 </svg>
             </button>
             <div class="hidden lg:flex items-center space-x-5">
-                <a class="flex items-center text-gray-500 hover:text-primary-hover {{ request()->is('roadmap') ? '!text-orange-500' : ''  }}"
-                   href="/roadmap" wire:navigate>
+                <a class="flex items-center text-gray-500 hover:text-primary-hover {{ request()->is('roadmaps') ? '!text-orange-500' : ''  }}"
+                   href="{{ route('roadmaps.index') }}" wire:navigate>
                     <svg viewBox="0 0 36 36" width="1.2em" height="1.2em" class=" mr-2">
                         <defs>
                             <path id="svgIDa" fill="none" d="M0 0h36v36H0z"></path>

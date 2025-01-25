@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b42ce295bdd1682768e6954fedbebf6d",
+    "content-hash": "98c75c3e9b4b6fd270727049968c6168",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -2333,6 +2333,64 @@
                 "source": "https://github.com/livewire/volt"
             },
             "time": "2024-05-31T19:07:20+00:00"
+        },
+        {
+            "name": "moh-slimani/blade-fontawesome",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/moh-slimani/blade-fontawesome.git",
+                "reference": "8fb4fdd0983bbb3d6f5266bacab9df9adff5fe75"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/moh-slimani/blade-fontawesome/zipball/8fb4fdd0983bbb3d6f5266bacab9df9adff5fe75",
+                "reference": "8fb4fdd0983bbb3d6f5266bacab9df9adff5fe75",
+                "shasum": ""
+            },
+            "require": {
+                "blade-ui-kit/blade-icons": "^1.6",
+                "illuminate/support": "^11.0",
+                "php": "~8.2.0|~8.3.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^9.0",
+                "phpunit/phpunit": "^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MohSlimani\\Fontawesome\\BladeFontawesomeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MohSlimani\\Fontawesome\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mohamed Slimani"
+                }
+            ],
+            "description": "A package to easily make use of FontAwesome in your Laravel Blade views.",
+            "homepage": "https://github.com/moh-slimani/blade-fontawesome",
+            "keywords": [
+                "FontAwesome",
+                "blade",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/moh-slimani/blade-fontawesome/issues",
+                "source": "https://github.com/moh-slimani/blade-fontawesome/tree/v1.0.0"
+            },
+            "time": "2024-07-26T22:46:43+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -9636,7 +9694,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.2"
+        "php": "^8.2",
+        "ext-pdo": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"

@@ -27,7 +27,7 @@
                     <time datetime="2023-07-20"
                           class="self-stretch my-auto">{{ $suggestion->created_at->format('d M, Y') }}</time>
                     @foreach($suggestion->tags as $tag)
-                        <span class="hover:text-orange-600">#{{ $tag }}</span>
+                        <a href="#" class="hover:text-orange-600" wire:navigate>#{{ $tag }}</a>
                     @endforeach
                     <div class="self-start px-2.5 py-1.5 mt-1 text-xs whitespace-nowrap bg-indigo-600 rounded"
                          role="status">
