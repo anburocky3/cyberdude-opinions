@@ -48,24 +48,34 @@
                  aria-label="Communication Channels">
                 <h2 class="self-center text-base font-medium text-black">Ask your doubts here:</h2>
                 <div class="flex gap-5 justify-between mt-6">
-                    <button
-                        class="focus:outline-none focus:ring-2"
-                        aria-label="Discord Communication channel">
+                    <button type="button"
+                            class="focus:outline-none focus:ring-2"
+                            aria-label="Discord Communication channel"
+                            onclick="shareOnSocialMedia('discord')">
                         <x-simpleicon-discord
                             class="text-blue-600 hover:text-blue-700 object-contain shrink-0 w-9 aspect-square" />
                     </button>
-                    <button class="focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            aria-label="Telegram communication channel">
+                    <button type="button" class="focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            aria-label="Telegram communication channel"
+                            onclick="shareOnSocialMedia('telegram')">
                         <x-simpleicon-telegram
                             class="text-blue-400 hover:text-blue-500 object-contain shrink-0 w-8 aspect-square" />
                     </button>
-                    <button class="focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            aria-label="YouTube communication channel">
-                        <x-simpleicon-youtube
-                            class="text-red-600 hover:text-red-700 object-contain shrink-0 w-10" />
+                    <button type="button" class="focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            aria-label="Whatsapp communication channel"
+                            onclick="shareOnSocialMedia('whatsapp')">
+                        <x-simpleicon-whatsapp
+                            class="text-green-600 hover:text-green-700 object-contain shrink-0 w-8" />
                     </button>
-                    <button class="focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            aria-label="Instagram communication channel">
+                    {{--                     <button type="button" class="focus:outline-none focus:ring-2 focus:ring-blue-500" --}}
+                    {{--                             aria-label="YouTube communication channel" --}}
+                    {{--                             onclick="shareOnSocialMedia('youtube')"> --}}
+                    {{--                         <x-simpleicon-youtube --}}
+                    {{--                             class="text-red-600 hover:text-red-700 object-contain shrink-0 w-10" /> --}}
+                    {{--                     </button> --}}
+                    <button type="button" class="focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            aria-label="Instagram communication channel"
+                            onclick="shareOnSocialMedia('instagram')">
                         <x-simpleicon-instagram
                             class="text-pink-600 hover:text-pink-700 object-contain shrink-0 w-8 aspect-square" />
                     </button>
@@ -277,5 +287,34 @@
         // Livewire.emit('reportComment', this.commentId, this.reason);
         Livewire.dispatch('reportComment', {commentId: this.commentId, reason: this.reason});
         this.showModal = false;
+    }
+</script>
+
+
+<script>
+    function shareOnSocialMedia(platform) {
+        const shareText = encodeURIComponent("Check out this amazing suggestion!");
+        const shareUrl = encodeURIComponent(window.location.href);
+
+        let url = '';
+        switch (platform) {
+            case 'discord':
+                url = `https://discord.com/channels/@me?text=${shareText} ${shareUrl}`;
+                break;
+            case 'telegram':
+                url = `https://t.me/share/url?url=${shareUrl}&text=${shareText}`;
+                break;
+            case 'whatsapp':
+                url = `https://api.whatsapp.com/send?text=${shareText} ${shareUrl}`;
+                break;
+            case 'youtube':
+                url = `https://www.youtube.com/`;
+                break;
+            case 'instagram':
+                url = `https://www.instagram.com/`;
+                break;
+        }
+
+        window.open(url, '_blank');
     }
 </script>
