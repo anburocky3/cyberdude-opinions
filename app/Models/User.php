@@ -57,6 +57,11 @@ class User extends Authenticatable
         return $this->hasMany(Vote::class);
     }
 
+    public function suggestions(): HasMany
+    {
+        return $this->hasMany(Suggestion::class);
+    }
+
     /**
      * Get the attributes that should be cast.
      *

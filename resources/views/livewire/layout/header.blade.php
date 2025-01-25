@@ -31,6 +31,11 @@ $logout = function (Logout $logout) {
                         <x-fa-s-gauge class="w-4 mr-2 fill-current " />
                         <div class="font-medium">Dashboard</div>
                     </a>
+                    <a class="flex items-center text-gray-500 hover:text-primary-hover {{ request()->is('admin/users') ? '!text-orange-500' : ''  }}"
+                       href="{{ route('admin.users') }}" wire:navigate>
+                        <x-fa-s-users class="w-4 mr-2 fill-current " />
+                        <div class="font-medium">Users</div>
+                    </a>
                 @endif
                 <a class="flex items-center text-gray-500 hover:text-primary-hover {{ request()->is('roadmaps') ? '!text-orange-500' : ''  }}"
                    href="{{ route('roadmaps.index') }}" wire:navigate>
