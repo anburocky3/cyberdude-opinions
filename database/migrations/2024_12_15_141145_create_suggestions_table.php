@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->text('desc');
             $table->boolean('show_roadmap')->default(false);
             $table->boolean('is_featured')->default(false);
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->enum('status', ['open', 'considering', 'planned', 'in-progress', 'completed']);
             $table->timestamps();
         });

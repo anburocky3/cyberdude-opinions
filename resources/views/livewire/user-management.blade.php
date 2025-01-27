@@ -16,7 +16,7 @@ state();
     </div>
 
     @if (session()->has('message'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-3" role="alert">
             <span class="block sm:inline">{{ session('message') }}</span>
         </div>
     @endif
@@ -67,7 +67,9 @@ state();
                         </td>
                         <td class="px-6 py-4">
                             <x-button variant="light" size="sm" wire:click="edit({{ $user->id }})">Edit</x-button>
-                            <x-button size="sm" wire:click="delete({{ $user->id }})" variant="danger">Delete</x-button>
+                            <x-button size="sm" variant="danger" onclick="confirmDelete({{ $user->id }})">Delete
+                            </x-button>
+                            {{--                             <x-button size="sm" wire:click="delete({{ $user->id }})" variant="danger">Delete</x-button> --}}
                         </td>
                     </tr>
                 @endforeach
@@ -101,7 +103,7 @@ state();
                             </div>
                         </div>
                     </div>
-                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse sm:space-x-reverse space-x-3">
                         <x-button wire:click="store">Save</x-button>
                         <x-button wire:click="closeModal" variant="o-dark">Cancel</x-button>
                     </div>
@@ -110,3 +112,12 @@ state();
         </div>
     @endif
 </div>
+
+<script>
+    function confirmDelete(userId) {
+        if (confirm('Are you sure you want to delete this user?')) {
+            @this.
+            call('delete', userId);
+        }
+    }
+</script>
