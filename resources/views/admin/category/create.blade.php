@@ -1,4 +1,4 @@
-@section('page-title')
+@section('title')
     Courses
 @endsection
 

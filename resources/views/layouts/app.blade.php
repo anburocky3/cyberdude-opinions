@@ -5,17 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('page-title') - {{ config('app.name') }}</title>
+    <title>@yield('title') - {{ config('app.name') }}</title>
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/png">
 
     @yield('head')
 
-    <x-meta-tags
-        :title="$metaTitle ?? config('app.name')"
-        :description="$metaDescription ?? 'CyberDude Tutorial forum is a place to submit your suggestions and vote on ideas from the community.'"
-        :url="url()->current()"
-        :image="$metaImage ?? asset('img/cyberdude-tutorials.png')"
-    />
+    {{--  SEO Tags  --}}
+    @include('layouts.partials.seo-tags')
+    
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

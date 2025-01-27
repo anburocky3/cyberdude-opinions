@@ -1,4 +1,4 @@
-@section('page-title')
+@section('title')
     Create Roadmaps
 @endsection
 
