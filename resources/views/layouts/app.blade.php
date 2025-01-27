@@ -11,12 +11,11 @@
     @yield('head')
 
     <x-meta-tags
-        title="@yield('meta-title', config('app.name'))"
-        description="@yield('meta-description', 'CyberDude Tutorial forum is a place to submit your suggestions and vote on ideas from the community.')"
-        url="{{ url()->current() }}"
-        image="@yield('meta-image', asset('img/cyberdude-tutorials.png'))"
+        :title="$metaTitle ?? config('app.name')"
+        :description="$metaDescription ?? 'CyberDude Tutorial forum is a place to submit your suggestions and vote on ideas from the community.'"
+        :url="url()->current()"
+        :image="$metaImage ?? asset('img/cyberdude-tutorials.png')"
     />
-
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

@@ -1,6 +1,8 @@
 @section('page-title', 'CyberDude Request - Your Opinions Matters!')
-@section('meta-title', 'CyberDude Request - Your Opinions Matters!')
-@section('meta-description', 'CyberDude tutorial is the coding forum for developers, where you can submit your suggestions and vote on ideas from the community.')
+@php
+    $metaTitle = 'CyberDude Request - Your Opinions Matters!';
+    $metaDescription = 'CyberDude tutorial is the coding forum for developers, where you can submit your suggestions and vote on ideas from the community.';
+@endphp
 
 <x-app-layout>
     <div class="container mx-auto">

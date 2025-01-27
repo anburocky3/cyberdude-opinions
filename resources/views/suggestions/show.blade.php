@@ -1,6 +1,8 @@
 @section('page-title', $suggestion->title)
-@section('meta-title', $suggestion->title)
-@section('meta-description', $suggestion->description)
+@php
+    $metaTitle = $suggestion->title;
+    $metaDescription = $suggestion->desc;
+@endphp
 
 <x-app-layout>
     @livewire('feedback-detail', ['suggestion' => $suggestion])
