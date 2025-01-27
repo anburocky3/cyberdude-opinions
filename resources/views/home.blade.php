@@ -1,9 +1,8 @@
-@section('page-title')
-    CyberDude Request - Your Opinions Matters!
-@endsection
+@section('page-title', 'CyberDude Request - Your Opinions Matters!')
+@section('meta-title', 'CyberDude Request - Your Opinions Matters!')
+@section('meta-description', 'CyberDude tutorial is the coding forum for developers, where you can submit your suggestions and vote on ideas from the community.')
 
 <x-app-layout>
-
     <div class="container mx-auto">
         <div class="p-5 flex flex-col md:flex-row md:space-x-10 space-y-10 md:space-y-0">
             <div class="w-full sm:w-72">

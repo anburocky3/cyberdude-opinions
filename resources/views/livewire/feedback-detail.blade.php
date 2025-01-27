@@ -1,6 +1,6 @@
 <div class="">
     <div
-        class="flex z-10 flex-col px-10 py-14  bg-gradient-to-b from-[#F2994A] to-[#FF7800]"
+        class="flex z-10 flex-col p-5 sm:px-10 sm:py-14  bg-gradient-to-b from-[#F2994A] to-[#FF7800]"
         role="region"
         aria-label="Project Details">
         <div class="flex flex-wrap gap-5 justify-between w-full container mx-auto ">
@@ -27,27 +27,31 @@
                     </div>
                     <div class="flex flex-col grow shrink-0 self-start mt-2 basis-0 w-fit max-md:max-w-full">
                         <h1 class="self-start text-xl font-bold text-yellow-950">{{$suggestion->title}}</h1>
-                        <p class="mt-2 text-base leading-6 text-white max-md:max-w-full">{{ $suggestion->desc }}</p>
+                        <p class="mt-2 text-sm sm:text-base leading-6 text-white max-md:max-w-full">{{ $suggestion->desc }}</p>
                     </div>
                 </div>
 
-                <div class="flex gap-7 items-center self-start mt-5 ml-24 text-sm text-white">
+                <div
+                    class="flex flex-col gap-3 sm:gap-7 items-start sm:flex-row sm:items-center mt-5 ml-0 sm:ml-24 text-sm text-white">
                     <div class="grow self-stretch my-auto font-semibold">{{ $suggestion->user->name }}</div>
-                    <time datetime="2023-07-20"
+                    <time datetime="{{ $suggestion->created_at->format('Y-m-d') }}"
                           class="self-stretch my-auto">{{ $suggestion->created_at->format('d M, Y') }}</time>
-                    @foreach($suggestion->tags as $tag)
-                        <a href="#" class="hover:text-orange-600" wire:navigate>#{{ $tag }}</a>
-                    @endforeach
+                    <div class="flex flex-wrap gap-2">
+                        @foreach($suggestion->tags as $tag)
+                            <a href="#" class="hover:text-orange-600" wire:navigate>#{{ $tag }}</a>
+                        @endforeach
+                    </div>
                     <div class="self-start px-2.5 py-1.5 mt-1 text-xs whitespace-nowrap bg-indigo-600 rounded"
                          role="status">
                         {{$suggestion->status}}
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col px-14 py-6 bg-white rounded-xl shadow-sm max-md:px-5" role="region"
+            <div class="flex flex-col px-14 py-6 w-full sm:w-fit bg-white rounded-xl shadow-sm max-md:px-5"
+                 role="region"
                  aria-label="Communication Channels">
                 <h2 class="self-center text-base font-medium text-black">Ask your doubts here:</h2>
-                <div class="flex gap-5 justify-between mt-6">
+                <div class="flex gap-5 justify-around mt-6">
                     <button type="button"
                             class="focus:outline-none focus:ring-2"
                             aria-label="Discord Communication channel"
@@ -85,9 +89,9 @@
     </div>
 
     {{--  Comments --}}
-    <section class="container mx-auto grid grid-cols-3 gap-10 my-10">
-        <div class="col-span-2">
-            <div class="bg-white p-5 rounded shadow-lg " x-data="{ comment: '', maxChars: 255 }">
+    <section class="container mx-auto grid grid-cols-3 gap-5 sm:gap-10 my-10">
+        <div class="col-span-3 sm:col-span-2">
+            <div class="bg-white p-5 rounded shadow-lg" x-data="{ comment: '', maxChars: 255 }">
                 <x-forms.textarea
                     class="w-full"
                     placeholder="Add a comment"
@@ -98,8 +102,8 @@
                     maxlength="255"
                 />
                 @error('comment') <span class="text-red-500">{{ $message }}</span> @enderror
-                <div class="flex justify-end" :class="{'justify-between': comment.length >= 3}">
-                    <div class="text-sm text-gray-600 mt-1 " x-show="comment.length >= 3"
+                <div class="flex flex-col sm:flex-row justify-end sm:justify-between">
+                    <div class="text-sm text-gray-600 mt-1 sm:mt-0" x-show="comment.length >= 3"
                          x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
                          x-transition:enter-end="opacity-100">
                         <span x-text="comment.length"></span> / <span x-text="maxChars"></span> characters used
@@ -107,7 +111,10 @@
                                                               remaining)
                     </div>
                     <div class="flex justify-end mt-3">
-                        <x-button wire:click="addComment">Add comment</x-button>
+                        <x-button size="sm" wire:click="addComment" class="w-full sm:w-auto">
+                            <x-fa-s-comment class="w-3 mr-3 fill-current text-white" />
+                            Add comment
+                        </x-button>
                     </div>
                 </div>
             </div>
@@ -258,7 +265,7 @@
                 @endforeach
             </div>
         </div>
-        <x-card class="h-fit">
+        <x-card class="col-span-3 sm:col-span-1 h-fit">
             <x-card.body>
                 <div class="pb-5">
                     <h4 class="text-lg font-semibold">Similar videos:</h4>

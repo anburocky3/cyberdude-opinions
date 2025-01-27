@@ -6,12 +6,16 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('page-title') - {{ config('app.name') }}</title>
-
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/png">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    @yield('head')
+
+    <x-meta-tags
+        title="@yield('meta-title', config('app.name'))"
+        description="@yield('meta-description', 'CyberDude Tutorial forum is a place to submit your suggestions and vote on ideas from the community.')"
+        url="{{ url()->current() }}"
+        image="@yield('meta-image', asset('img/cyberdude-tutorials.png'))"
+    />
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
