@@ -24,14 +24,17 @@ class SendSuggestionConfirmation
     {
         $suggestion = $event->suggestion;
 
+        // Generate a random vibrant color
+        $color = $this->generateVibrantColor();
+
         // Send message to Discord
         Http::post(config('services.discord.webhook_url'), [
             'content' => "New suggestion created: {$suggestion->title}",
             'embeds' => [
                 [
-                    'title' => "Request: {$suggestion->title}",
-                    'description' => "{$suggestion->desc}",
-                    'color' => 7506394,
+                    'title' => "Suggestion: #{$suggestion->id} - {$suggestion->title}",
+                    'description' => "{$suggestion->desc}\n\n👍 Vote Up | 👎 Vote Down\n\n",
+                    'color' => $color,
                     'fields' => [
                         [
                             'name' => 'Status',
@@ -80,5 +83,23 @@ class SendSuggestionConfirmation
             'text' => $message,
             'parse_mode' => 'Markdown'
         ]);
+    }
+
+    /**
+     * Generate a random vibrant color.
+     */
+    private function generateVibrantColor(): int
+    {
+        $colors = [
+            0xFF5733, // Vibrant Red
+            0x33FF57, // Vibrant Green
+            0x3357FF, // Vibrant Blue
+            0xFF33A1, // Vibrant Pink
+            0xFF8C33, // Vibrant Orange
+            0x33FFF5, // Vibrant Cyan
+            0x8C33FF, // Vibrant Purple
+        ];
+
+        return $colors[array_rand($colors)];
     }
 }
