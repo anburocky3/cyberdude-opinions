@@ -43,6 +43,7 @@ return [
 
     'discord' => [
         'webhook_url' => env('DISCORD_WEBHOOK_URL'),
+        'token' => env('DISCORD_BOT_TOKEN'),
     ],
 
     'telegram' => [
