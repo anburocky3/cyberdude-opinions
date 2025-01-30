@@ -12,15 +12,11 @@ use Livewire\Component;
 
 class SuggestionCreate extends Component
 {
-    #[Validate('required')]
     public string $title = '';
-    #[Validate('required')]
     public string $technology = '';
-    #[Validate('required')]
     public string $tags = '';
-    #[Validate('required')]
     public string $desc = '';
-    #[Validate('required')]
+
     public string $status = '';
 
     public array $statusOptions = [];
@@ -51,5 +47,16 @@ class SuggestionCreate extends Component
     public function render(): Application|Factory|\Illuminate\Contracts\View\View|View
     {
         return view('livewire.suggestion-create');
+    }
+
+    protected function rules(): array
+    {
+        return [
+            'title' => 'required|min:3',
+            'technology' => 'required',
+            'tags' => 'required',
+            'desc' => 'required',
+            'status' => 'required|in:' . implode(',', Suggestion::STATUS),
+        ];
     }
 }

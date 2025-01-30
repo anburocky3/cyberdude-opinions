@@ -8,19 +8,19 @@
 ])
 
 @php
-    $baseClasses = 'inline-flex items-center justify-center font-medium rounded transition duration-150 ease-in-out shadow bg-gradient-to-r text-white hover:shadow-lg';
+    $baseClasses = 'inline-flex items-center justify-center font-medium rounded transition duration-150 ease-in-out shadow text-white hover:shadow-lg';
 
     // Button variant classes with gradient colors
     $variantClasses = [
-        'primary' => 'from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600',
-        'secondary' => 'from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700',
-        'success' => 'from-green-500 to-green-600 hover:from-green-600 hover:to-green-700',
-        'danger' => 'from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700',
-        'warning' => 'from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700',
+        'primary' => 'bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600',
+        'secondary' => 'bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700',
+        'success' => 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700',
+        'danger' => 'bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700',
+        'warning' => 'bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700',
         'light' => 'bg-white !text-black border hover:bg-gray-50',
-        'dark' => 'from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700',
+        'dark' => 'bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700',
         'o-dark' => '!text-gray-600 border hover:bg-gray-50 !text-xs',
-    ][$variant] ?? 'from-red-500 to-orange-500'; // Fallback to 'primary'
+    ][$variant] ?? 'bg-gradient-to-r from-red-500 to-orange-500'; // Fallback to 'primary'
 
     // Button size classes
     $sizeClasses = [

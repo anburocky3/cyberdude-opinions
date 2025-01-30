@@ -6,6 +6,7 @@ use App\Events\SuggestionCreated;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use LaravelIdea\Helper\App\Models\_IH_Suggestion_C;
 use Str;
 
 class Suggestion extends Model
@@ -35,7 +36,6 @@ class Suggestion extends Model
         'tags' => 'array',
     ];
 
-
     protected static function booted(): void
     {
         static::creating(function ($suggestion) {
@@ -53,6 +53,11 @@ class Suggestion extends Model
         static::created(function ($suggestion) {
             event(new SuggestionCreated($suggestion));
         });
+    }
+
+    public function scopeRoadmapOnly($query)
+    {
+        return $query->where('show_roadmap', true);
     }
 
     public function getRouteKeyName(): string

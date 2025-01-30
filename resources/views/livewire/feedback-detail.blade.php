@@ -5,9 +5,16 @@
         aria-label="Project Details">
         <div class="flex flex-wrap gap-5 justify-between w-full container mx-auto ">
             <div class="">
+                @if (session('flashPost'))
+                    <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 my-3"
+                         role="alert">
+                        <x-heroicon-c-check-circle class="w-5 h-5 inline mr-2" />
+                        {{session('flashPost')}}
+                    </div>
+                @endif
                 <div class="flex flex-wrap gap-5 self-start mt-2.5">
                     <div
-                        class="bg-white rounded flex flex-col items-center font-black px-5 pb-5 hover:bg-white">
+                        class="bg-white rounded flex flex-col items-center font-black px-5 pb-5 hover:bg-white h-fit">
                         @auth
                             <button wire:click="vote" class="focus:outline-none">
                                 <svg width="1em" height="1em" viewBox="0 0 24 24"
@@ -26,8 +33,68 @@
                         <div class="text-xl font-semibold">{{ $suggestion->votes->count() }}</div>
                     </div>
                     <div class="flex flex-col grow shrink-0 self-start mt-2 basis-0 w-fit max-md:max-w-full">
-                        <h1 class="self-start text-xl font-bold text-yellow-950">{{$suggestion->title}}</h1>
-                        <p class="mt-2 text-sm sm:text-base leading-6 text-white max-md:max-w-full">{{ $suggestion->desc }}</p>
+                        @if($editingSuggestion)
+                            <x-forms.input
+                                class="w-full"
+                                wire:model="editingTitle"
+                                rows="1"
+                            />
+                            <x-forms.input-error :messages="$errors->get('editingTitle')" class="mt-2" />
+                            <x-forms.textarea
+                                class="w-full mt-2"
+                                wire:model="editingDesc"
+                                rows="3"
+                            />
+                            <x-forms.input-error :messages="$errors->get('editingDesc')" class="mt-2" />
+                            <x-forms.input
+                                class="w-full mt-2"
+                                wire:model="editingTags"
+                                rows="3"
+                            />
+                            <x-forms.input-error :messages="$errors->get('editingTags')" class="mt-2" />
+                            @if(auth()->user()->role === 'admin')
+                                <div>
+                                    <x-forms.select
+                                        class="w-full mt-2"
+                                        wire:model="editingStatus"
+                                        name="status"
+                                        :options="\App\Models\Suggestion::STATUS"
+                                        placeholder="Select status"
+                                        required
+                                    />
+                                    <x-forms.input-error :messages="$errors->get('editingStatus')"
+                                                         class="mt-2 !text-red-50" />
+                                </div>
+
+                                <div class="mt-2">
+                                    <label for="editingShowRoadmap" class="flex items-center">
+                                        <input type="checkbox" id="editingShowRoadmap" wire:model="editingShowRoadmap"
+                                               class="form-checkbox">
+                                        <span class="ml-2 text-sm text-white">Show on Roadmap</span>
+                                    </label>
+                                    <x-forms.input-error :messages="$errors->get('editingShowRoadmap')"
+                                                         class="mt-2 !text-red-50" />
+                                </div>
+                            @endif
+                            <div class="flex justify-end mt-3">
+                                <x-button wire:click="updateSuggestion" variant="secondary" size="sm">Update</x-button>
+                                <x-button wire:click="$set('editingSuggestion', false)" variant="dark" class="ml-2"
+                                          size="sm">
+                                    Cancel
+                                </x-button>
+                            </div>
+                        @else
+                            <h1 class="self-start text-xl font-bold text-yellow-950">{{$suggestion->title}}</h1>
+                            <p class="mt-2 text-sm sm:text-base leading-6 text-white max-md:max-w-full">{{ $suggestion->desc }}</p>
+                            @if($suggestion->user_id === auth()->id())
+                                <div class="flex justify-end mt-3">
+                                    <x-button wire:click="editSuggestion" variant="light" size="sm">
+                                        <x-heroicon-o-pencil-square class="w-3 mr-2" />
+                                        <span>Edit</span>
+                                    </x-button>
+                                </div>
+                            @endif
+                        @endif
                     </div>
                 </div>
 

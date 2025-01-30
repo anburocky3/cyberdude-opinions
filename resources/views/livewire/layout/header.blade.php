@@ -88,9 +88,18 @@ $logout = function (Logout $logout) {
                             <x-slot name="trigger">
                                 <button
                                     class="inline-flex items-center px-3 py-2  leading-4 font-medium rounded-md focus:outline-none transition ease-in-out duration-150">
-                                    <div x-data="{{ json_encode(['name' => auth()->user()->name]) }}"
-                                         x-text="`Hello ${name}`"
-                                         x-on:profile-updated.window="name = $event.detail.name"></div>
+                                    <div>
+
+                                        <div x-data="{{ json_encode(['name' => auth()->user()->name]) }}"
+                                             x-text="`Hello ${name}`"
+                                             x-on:profile-updated.window="name = $event.detail.name"></div>
+                                        @if(auth()->user()->role === 'admin')
+                                            <div
+                                                class="px-2 py-1 rounded bg-indigo-500 text-xs text-white w-fit float-right mt-2">
+                                                Admin
+                                            </div>
+                                        @endif
+                                    </div>
                                     <img src="{{ auth()->user()->avatar }}" alt="User Avatar"
                                          class="w-8 h-8 rounded-full mx-2">
                                     <div class="ms-1">

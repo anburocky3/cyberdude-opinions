@@ -3,6 +3,9 @@
 namespace App\Livewire;
 
 use App\Models\Suggestion;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Foundation\Application;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class Feedback extends Component
@@ -10,12 +13,12 @@ class Feedback extends Component
     public Suggestion $feedback;
     public $votes = 0;
 
-    public function mount(Suggestion $feedback)
+    public function mount(Suggestion $feedback): void
     {
         $this->feedback = $feedback;
     }
 
-    public function addVote()
+    public function addVote(): void
     {
         $existingVote = $this->feedback->votes()->where('user_id', auth()->id())->first();
 
@@ -33,7 +36,7 @@ class Feedback extends Component
         return $this->feedback->votes()->where('user_id', auth()->id())->exists();
     }
 
-    public function render()
+    public function render(): Application|Factory|\Illuminate\Contracts\View\View|View
     {
         return view('livewire.feedback');
     }

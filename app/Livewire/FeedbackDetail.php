@@ -29,6 +29,14 @@ class FeedbackDetail extends Component
 
     public string $editingContent = '';
 
+    public $editingSuggestion = false;
+    public string $editingTitle;
+    public string $editingDesc;
+    public string $editingTags;
+    public string $editingStatus;
+    public bool $editingShowRoadmap = false;
+
+
     public function mounted(Suggestion $suggestion)
     {
         $this->suggestion = $suggestion;
@@ -176,6 +184,46 @@ class FeedbackDetail extends Component
     public function userHasVoted()
     {
         return $this->suggestion->votes()->where('user_id', auth()->id())->exists();
+    }
+
+    public function editSuggestion(): void
+    {
+        $this->editingSuggestion = true;
+        $this->editingTitle = $this->suggestion->title;
+        $this->editingDesc = $this->suggestion->desc;
+        $this->editingTags = implode(',', $this->suggestion->tags);
+        $this->editingStatus = $this->suggestion->status;
+        $this->editingShowRoadmap = $this->suggestion->show_roadmap;
+    }
+
+    public function updateSuggestion(): void
+    {
+
+        $this->validate([
+            'editingTitle' => 'required|string|max:255',
+            'editingDesc' => 'required|string|max:1000',
+            'editingTags' => 'required|string|max:1000',
+            'editingShowRoadmap' => 'nullable|boolean',
+            'editingStatus' => 'nullable|string|in:' . implode(',', array_keys(Suggestion::STATUS)),
+        ]);
+
+
+        $updateData = [
+            'title' => $this->editingTitle,
+            'desc' => $this->editingDesc,
+            'tags' => explode(',', $this->editingTags),
+        ];
+
+        if (auth()->user()->isAdmin()) {
+            $updateData['status'] = $this->editingStatus;
+            $updateData['show_roadmap'] = $this->editingShowRoadmap;
+        }
+
+        $this->suggestion->update($updateData);
+
+        $this->editingSuggestion = false;
+
+        session()->flash('flashPost', 'Post updated successfully!');
     }
 
 

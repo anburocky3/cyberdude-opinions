@@ -18,10 +18,21 @@ class RoadmapIndex extends Component
     {
         // $this->roadmaps = Roadmap::all();
         $this->roadmaps = [
-            'suggestions' => Suggestion::where('status', 'considering')->with('votes')->latest()->get(),
-            'planned' => Suggestion::where('status', 'planned')->with('votes')->latest()->get(),
-            'in-progress' => Suggestion::where('status', 'in-progress')->with('votes')->latest()->get(),
-            'completed' => Suggestion::where('status', 'completed')->with('votes')->latest()->get(),
+            'suggestions' => Suggestion::RoadmapOnly()
+                ->where('status', 'considering')
+                ->with('votes')->latest()->get(),
+
+            'planned' => Suggestion::RoadmapOnly()
+                ->where('status', 'planned')
+                ->with('votes')->latest()->get(),
+
+            'in-progress' => Suggestion::RoadmapOnly()
+                ->where('status', 'in-progress')
+                ->with('votes')->latest()->get(),
+
+            'completed' => Suggestion::RoadmapOnly()
+                ->where('status', 'completed')
+                ->with('votes')->latest()->get(),
         ];
         // Suggestion::with('votes')->latest()->get();
     }
