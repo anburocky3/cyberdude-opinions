@@ -9,7 +9,10 @@ class CourseController extends Controller
 {
     public function index()
     {
-        return Course::all();
+        // dd(explode(',', 'At ut, voluptas iure '));
+        $courses = Course::with('sections.topics')->get();
+
+        return view('admin.course.index', compact('courses'));
     }
 
     public function store(Request $request)
@@ -31,7 +34,8 @@ class CourseController extends Controller
 
     public function show(Course $course)
     {
-        return $course;
+        $course->load('sections.topics');
+        return view('courses.show', compact('course'));
     }
 
     public function update(Request $request, Course $course)

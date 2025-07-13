@@ -196,6 +196,21 @@ class FeedbackDetail extends Component
         $this->editingShowRoadmap = $this->suggestion->show_roadmap;
     }
 
+    public function deleteSuggestion()
+    {
+        // only admin should able to delete the suggestion
+        if (!auth()->user()->isAdmin()) {
+            session()->flash('flash', 'You are not authorized to delete this suggestion.');
+            return redirect()->route('site.index');
+        }
+
+        $this->suggestion->delete();
+
+        session()->flash('flash', 'Suggestion deleted successfully!');
+
+        return redirect()->route('site.index');
+    }
+
     public function updateSuggestion(): void
     {
 

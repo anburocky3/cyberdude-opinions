@@ -1,3 +1,5 @@
+@section('title', 'Create Courses')
+
 <div class="container mx-auto p-5 py-10">
     <div class="flex items-center mb-5">
         <a href="{{route('admin.courses.index')}}" wire:navigate>
@@ -8,8 +10,12 @@
     <div class="bg-white p-10 rounded">
         <form wire:submit.prevent="save" class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="col-span-1">
-                <x-forms.input type="text" id="title" name="title" label="Course Title" wire:model="title"
+                <x-forms.input type="text" id="title" name="title" label="Course Title"
+                               wire:model.live.debounce.150ms="title"
                                placeholder="Course Title" required />
+                @if(strlen($title) > 0)
+                    <small class="text-xs text-gray-500">{{config('app.url')}}/courses/{{ $slug }}</small>
+                @endif
                 <x-forms.input-error :messages="$errors->get('title')" class="mt-2" />
             </div>
 
@@ -17,7 +23,7 @@
                 <div class="col-span-1">
                     <x-forms.select wire:model="category_id" id="category_id" class=""
                                     name="category_id"
-                                    :options="getAllTechCategories()"
+                                    :options="$categories"
                                     label="Category"
                                     required
                                     placeholder="Choose a Category"
@@ -38,6 +44,7 @@
 
             <div class="col-span-1">
                 <x-forms.input type="text" id="slug" name="slug" label="Slug" wire:model="slug" placeholder="Slug"
+
                                required />
                 <x-forms.input-error :messages="$errors->get('slug')" class="mt-2" />
             </div>
@@ -46,7 +53,7 @@
                 <div class="col-span-1">
                     <x-forms.select wire:model="language" id="language" class=""
                                     name="language"
-                                    :options="['ta' => 'Tamil', 'en' => 'English']"
+                                    :options="['tamil' => 'Tamil', 'english' => 'English']"
                                     label="Language"
                                     required
                                     placeholder="Choose a Language"
@@ -54,8 +61,9 @@
                     <x-forms.input-error :messages="$errors->get('language')" class="mt-2" />
                 </div>
                 <div class="col-span-1">
-                    <x-forms.input type="number" id="duration" name="duration" label="Duration" wire:model="duration"
-                                   placeholder="Duration" required />
+                    <x-forms.input type="number" id="duration" name="duration" label="Duration (Mins)"
+                                   wire:model="duration"
+                                   placeholder="Duration in minutes" required />
                     <x-forms.input-error :messages="$errors->get('duration')" class="mt-2" />
                 </div>
             </div>

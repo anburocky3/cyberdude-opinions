@@ -56,7 +56,7 @@ class SuggestionCreate extends Component
             'technology' => 'required',
             'tags' => 'required',
             'desc' => 'required',
-            'status' => 'required|in:' . implode(',', Suggestion::STATUS),
+            'status' => 'required|in:' . implode(',', array_keys(Suggestion::STATUS)),
         ];
     }
 }

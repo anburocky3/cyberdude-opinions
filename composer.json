@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.4",
         "livewire/volt": "^1.0",
+        "masmerise/livewire-toaster": "^2.7",
         "moh-slimani/blade-fontawesome": "^1.0",
         "team-reflex/discord-php": "^10.3",
         "ublabs/blade-simple-icons": "^0.139.0"

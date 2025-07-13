@@ -87,11 +87,19 @@
                             <h1 class="self-start text-xl font-bold text-yellow-950">{{$suggestion->title}}</h1>
                             <p class="mt-2 text-sm sm:text-base leading-6 text-white max-md:max-w-full">{{ $suggestion->desc }}</p>
                             @if($suggestion->user_id === auth()->id())
-                                <div class="flex justify-end mt-3">
+                                <div class="flex justify-end mt-3 space-x-4">
                                     <x-button wire:click="editSuggestion" variant="light" size="sm">
                                         <x-heroicon-o-pencil-square class="w-3 mr-2" />
                                         <span>Edit</span>
                                     </x-button>
+                                    @if(auth()->user()->isAdmin())
+                                        <x-button wire:click="deleteSuggestion" variant="danger" size="sm"
+                                                  onclick="return confirm('Are you sure you want to delete this suggestion?')"
+                                        >
+                                            <x-heroicon-o-trash class="w-3 mr-2" />
+                                            <span>Delete</span>
+                                        </x-button>
+                                    @endif
                                 </div>
                             @endif
                         @endif

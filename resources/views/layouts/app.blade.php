@@ -12,7 +12,7 @@
 
     {{--  SEO Tags  --}}
     @include('layouts.partials.seo-tags')
-    
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -29,6 +29,9 @@
     <main class="flex-grow">
         {{ $slot }}
     </main>
+
+    {{-- Toaster --}}
+    <x-toaster-hub />
 
     {{-- Footer --}}
     <livewire:layout.footer />
