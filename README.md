@@ -95,7 +95,7 @@ php artisan deploy
 ### Additional scripts
 
 ```sh
-php artisan syc:production-data #sync production data to local
+php artisan sync:production-data #sync production data to local
 php artisan discord:run #run discord bot
 php artisan deploy #deploy the application
 ```

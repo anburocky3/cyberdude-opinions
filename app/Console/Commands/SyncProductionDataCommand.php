@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Suggestion;
+use App\Models\User;
 use Arr;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -16,7 +17,30 @@ class SyncProductionDataCommand extends Command
 
     public function handle(): void
     {
-        // Fetch data from the production database
+
+        // STEP: 1 - Fetch users from the production database
+        $productionUsers = User::on('production_mysql')->get();
+
+        foreach ($productionUsers as $user) {
+            $userData = $user->toArray();
+
+            // Convert datetime fields to MySQL format if not null
+            foreach (['email_verified_at', 'created_at', 'updated_at'] as $field) {
+                if (!empty($userData[$field])) {
+                    $userData[$field] = Carbon::parse($userData[$field])->format('Y-m-d H:i:s');
+                }
+            }
+
+            User::updateOrInsert(
+                ['id' => $user->id], // Assuming 'id' is the primary key
+                $userData
+            );
+        }
+
+        $this->info('✅ Users synchronization complete.');
+
+        // ----------
+        // STEP: 2 - Fetch data from the production database
         $productionData = Suggestion::on('production_mysql')->get();
 
         // Update the local database
