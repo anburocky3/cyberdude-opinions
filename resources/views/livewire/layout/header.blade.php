@@ -60,7 +60,7 @@ $logout = function (Logout $logout) {
                     </svg>
                     <div class="font-medium">Roadmap</div>
                 </a>
-                <a class="flex items-center text-gray-500 hover:text-primary-hover {{ request()->is(['/', 'suggestion/create']) ? '!text-orange-500' : ''  }}"
+                <a class="flex items-center text-gray-500 hover:text-primary-hover {{ request()->is(['/', 'suggestion/*']) ? '!text-orange-500' : ''  }}"
                    href="/" wire:navigate>
                     <svg viewBox="0 0 24 24" width="1.2em" height="1.2em" class="mr-2">
                         <path fill="currentColor"

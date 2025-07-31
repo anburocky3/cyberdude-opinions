@@ -8,3 +8,24 @@ body {
     /*@apply font-mont*/
     @apply font-inter
 }
+
+/* Status codes */
+.status-open {
+    @apply bg-yellow-500 hover:bg-yellow-600 text-white;
+}
+
+.status-in-progress {
+    @apply bg-green-500 hover:bg-green-600 text-white;
+}
+
+.status-considering {
+    @apply bg-orange-500 hover:bg-orange-600 text-white;
+}
+
+.status-planned {
+    @apply bg-blue-500 hover:bg-blue-600 text-white;
+}
+
+.status-completed {
+    @apply bg-purple-500 hover:bg-purple-600 text-white;
+}

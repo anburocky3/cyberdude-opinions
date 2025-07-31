@@ -1,9 +1,10 @@
+@php use App\Models\Suggestion; @endphp
 <div class="">
     <div
         class="flex z-10 flex-col p-5 sm:px-10 sm:py-14  bg-gradient-to-b from-[#F2994A] to-[#FF7800]"
         role="region"
         aria-label="Project Details">
-        <div class="flex flex-wrap gap-5 justify-between w-full container mx-auto ">
+        <div class="flex gap-5 justify-between w-full container mx-auto ">
             <div class="">
                 @if (session('flashPost'))
                     <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 my-3"
@@ -16,9 +17,11 @@
                     <div
                         class="bg-white rounded flex flex-col items-center font-black px-5 pb-5 hover:bg-white h-fit">
                         @auth
-                            <button wire:click="vote" class="focus:outline-none">
+                            <button wire:click="vote" class="focus:outline-none"
+                                    title="{{ $this->userHasVoted() ? 'Remove Vote' : 'Vote for this suggestion' }}">
                                 <svg width="1em" height="1em" viewBox="0 0 24 24"
-                                     class="w-10 h-10 {{ $this->userHasVoted() ? 'text-orange-500' : 'text-gray-400' }}">
+                                     class="w-10 h-10 {{ $this->userHasVoted() ? 'text-orange-500 hover:text-orange-600' : 'text-gray-400 hover:text-orange-500' }}"
+                                >
                                     <path fill="currentColor" d="m7 14l5-5l5 5H7z"></path>
                                 </svg>
                             </button>
@@ -58,7 +61,7 @@
                                         class="w-full mt-2"
                                         wire:model="editingStatus"
                                         name="status"
-                                        :options="\App\Models\Suggestion::STATUS"
+                                        :options="Suggestion::STATUS"
                                         placeholder="Select status"
                                         required
                                     />
@@ -108,21 +111,31 @@
 
                 <div
                     class="flex flex-col gap-3 sm:gap-7 items-start sm:flex-row sm:items-center mt-5 ml-0 sm:ml-24 text-sm text-white">
-                    <div class="grow self-stretch my-auto font-semibold">{{ $suggestion->user->name }}</div>
-                    <time datetime="{{ $suggestion->created_at->format('Y-m-d') }}"
-                          class="self-stretch my-auto">{{ $suggestion->created_at->format('d M, Y') }}</time>
+                    <h4 class="text-sm font-semibold flex items-center ">
+                        <x-fa-s-user class="w-3 h-3 fill-current text-orange-100 inline-block mr-2 " />
+                        <span class="">{{ $suggestion->user->name }}</span></h4>
+                    <div class="flex flex-col sm:flex-row text-gray-500 sm:space-x-4 text-sm">
+                        <span class="text-white">
+                            <x-heroicon-o-clock class="w-4 h-4 inline-block" />
+                             <time datetime="{{ $suggestion->created_at->format('Y-m-d') }}">
+
+                            {{ $suggestion->created_at->diffForHumans() }}
+                             </time>
+                        </span>
+                    </div>
                     <div class="flex flex-wrap gap-2">
                         @foreach($suggestion->tags as $tag)
                             <a href="#" class="hover:text-orange-600" wire:navigate>#{{ $tag }}</a>
                         @endforeach
                     </div>
-                    <div class="self-start px-2.5 py-1.5 mt-1 text-xs whitespace-nowrap bg-indigo-600 rounded"
-                         role="status">
+                    <div
+                        class="self-start px-2.5 py-1.5 mt-1 text-xs whitespace-nowrap bg-indigo-600 rounded font-semibold uppercase"
+                        role="status">
                         {{$suggestion->status}}
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col px-14 py-6 w-full sm:w-fit bg-white rounded-xl shadow-sm max-md:px-5"
+            <div class="flex flex-col px-14 py-6 w-full sm:w-fit bg-white h-fit rounded-xl shadow-sm max-md:px-5"
                  role="region"
                  aria-label="Communication Channels">
                 <h2 class="self-center text-base font-medium text-black">Ask your doubts here:</h2>
@@ -130,18 +143,21 @@
                     <button type="button"
                             class="focus:outline-none focus:ring-2"
                             aria-label="Discord Communication channel"
-                            onclick="shareOnSocialMedia('discord')">
+                            onclick="shareOnSocialMedia('discord')"
+                            title="Share on Discord">
                         <x-simpleicon-discord
                             class="text-blue-600 hover:text-blue-700 object-contain shrink-0 w-9 aspect-square" />
                     </button>
                     <button type="button" class="focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            aria-label="Telegram communication channel"
+                            aria-label="Share on Telegram"
+                            title="Share on Telegram"
                             onclick="shareOnSocialMedia('telegram')">
                         <x-simpleicon-telegram
                             class="text-blue-400 hover:text-blue-500 object-contain shrink-0 w-8 aspect-square" />
                     </button>
                     <button type="button" class="focus:outline-none focus:ring-2 focus:ring-blue-500"
                             aria-label="Whatsapp communication channel"
+                            title="Share on Whatsapp"
                             onclick="shareOnSocialMedia('whatsapp')">
                         <x-simpleicon-whatsapp
                             class="text-green-600 hover:text-green-700 object-contain shrink-0 w-8" />
@@ -154,6 +170,7 @@
                     {{--                     </button> --}}
                     <button type="button" class="focus:outline-none focus:ring-2 focus:ring-blue-500"
                             aria-label="Instagram communication channel"
+                            title="Share on Instagram"
                             onclick="shareOnSocialMedia('instagram')">
                         <x-simpleicon-instagram
                             class="text-pink-600 hover:text-pink-700 object-contain shrink-0 w-8 aspect-square" />
@@ -166,7 +183,12 @@
     {{--  Comments --}}
     <section class="container mx-auto grid grid-cols-3 gap-5 sm:gap-10 my-10">
         <div class="col-span-3 sm:col-span-2">
+            <div class="bg-white p-5 rounded shadow-lg mb-5">
+                <h2 class="text-lg font-semibold mb-4">Notes</h2>
+                <p class="text-gray-600 text-sm">Share your thoughts and feedback on this suggestion.</p>
+            </div>
             <div class="bg-white p-5 rounded shadow-lg" x-data="{ comment: '', maxChars: 255 }">
+                <h4 class="font-semibold mb-3">Comments ({{ $suggestion->comments->count() }})</h4>
                 <x-forms.textarea
                     class="w-full"
                     placeholder="Add a comment"

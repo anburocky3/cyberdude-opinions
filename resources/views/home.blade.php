@@ -13,23 +13,64 @@
                     </div>
                     <div>
                         <ul class="pt-3">
-                            <li class="flex items-center space-x-2 hover:bg-gray-50 cursor-pointer p-3">
-                                <div class="w-2 h-2 bg-primary rounded "></div>
-                                <span>Under Consideration</span></li>
-                            <li class="flex items-center space-x-2 hover:bg-gray-50 cursor-pointer p-3">
-                                <div class="w-2 h-2 bg-blue-500 rounded"></div>
-                                <span>Planned</span></li>
-                            <li class="flex items-center space-x-2 hover:bg-gray-50 cursor-pointer p-3">
-                                <div class="w-2 h-2 bg-indigo-500 rounded"></div>
-                                <span>In Development</span></li>
-                            <li class="flex items-center space-x-2 hover:bg-gray-50 cursor-pointer p-3">
-                                <div class="w-2 h-2 bg-green-500 rounded"></div>
-                                <span>Ready To Watch</span></li>
+                            <li>
+                                <a href="{{ route('site.index', ['status' => 'considering']) }}"
+                                   class="flex items-center space-x-2 hover:bg-gray-50 cursor-pointer rounded p-3 {{ $selectedStatus === 'considering' ? 'bg-gray-100' : '' }}">
+                                    <div class="w-2 h-2 bg-primary rounded"></div>
+                                    <span>Under Consideration</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('site.index', ['status' => 'planned']) }}"
+                                   class="flex items-center space-x-2 hover:bg-gray-50 cursor-pointer rounded p-3 {{ $selectedStatus === 'planned' ? 'bg-gray-100' : '' }}">
+                                    <div class="w-2 h-2 bg-blue-500 rounded"></div>
+                                    <span>Planned</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('site.index', ['status' => 'in-progress']) }}"
+                                   class="flex items-center space-x-2 hover:bg-gray-50 cursor-pointer rounded p-3 {{ $selectedStatus === 'in-progress' ? 'bg-gray-100' : '' }}">
+                                    <div class="w-2 h-2 bg-green-500 rounded"></div>
+                                    <span>In Progress</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('site.index', ['status' => 'completed']) }}"
+                                   class="flex items-center space-x-2 hover:bg-gray-50 cursor-pointer rounded p-3 {{ $selectedStatus === 'completed' ? 'bg-gray-100' : '' }}">
+                                    <div class="w-2 h-2 bg-indigo-500 rounded"></div>
+                                    <span>Ready To Watch</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('site.index') }}"
+                                   class="flex items-center space-x-2 hover:bg-gray-50 cursor-pointer rounded p-3 {{ $selectedStatus === 'all' ? 'bg-gray-100' : '' }}">
+                                    <div class="w-2 h-2 bg-gray-500 rounded"></div>
+                                    <span>All</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="flex-1 max-w-4xl md:p-5">
+                @if($selectedStatus !== 'all')
+                    <div
+                        class="mb-4  px-4 py-3 rounded-md text-sm -m-5 {{ getStatusColor($selectedStatus) }}">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                          clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Showing {{ $suggestions->count() }} records of <strong>{{ ucwords($selectedStatus) }}</strong> suggestions</span>
+                            </div>
+                            <a href="{{ route('site.index') }}" wire:navigate title="Clear Filter">
+                                <x-fa-s-xmark class="w-3 h-3 cursor-pointer text-blue-600 hover:text-blue-800" />
+                            </a>
+                        </div>
+                    </div>
+                @endif
                 <div class="flex justify-between items-center"><h4 class="text-2xl font-bold">Suggestions</h4>
                     @auth()
                         <a

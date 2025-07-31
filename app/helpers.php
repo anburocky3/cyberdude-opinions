@@ -78,9 +78,24 @@ if (!function_exists('getAllTechCategories')) {
                 'Gulp' => 'Gulp',
                 'Grunt' => 'Grunt',
                 'Babel' => 'Babel',
+                'Tooling' => 'Tooling',
             ]
         ];
 
         return $technologies;
+    }
+}
+
+if (!function_exists('getStatusColor')) {
+    function getStatusColor($status): string
+    {
+        return match (strtolower($status)) {
+            'open' => 'status-open',
+            'in-progress' => 'status-in-progress',
+            'considering' => 'status-considering',
+            'planned' => 'status-planned',
+            'completed' => 'status-completed',
+            default => 'bg-gray-400 hover:bg-gray-600'
+        };
     }
 }
